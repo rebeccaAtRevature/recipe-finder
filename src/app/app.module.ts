@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
+import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -14,12 +16,13 @@ import { MaterialModule } from './material/material.module';
     SearchBarComponent,
     RecipeCardComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
