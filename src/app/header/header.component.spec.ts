@@ -7,19 +7,20 @@ import { HarnessLoader } from '@angular/cdk/testing'
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed'
 import { MatToolbarHarness } from '@angular/material/toolbar/testing'
 import { MaterialModule } from '../material/material.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // define a test suite for the CounterComponent
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let headerElement: HTMLElement;
-  let materialElement: HTMLElement;
-  
+    
   beforeEach(async () => { // use async to wait for components to compile
     await TestBed.configureTestingModule({ 
       // add headerComponent object to the testing module
       declarations: [ HeaderComponent ],
-      imports: [ MaterialModule ]
+      imports: [ MaterialModule ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
       // return the test bed
     })
     // compile all declared components, directives, and pipes
@@ -27,7 +28,7 @@ describe('HeaderComponent', () => {
     .compileComponents();
   });
 
-  let loader: HarnessLoader;
+  // let loader: HarnessLoader;
 
   beforeEach(() => {
     // render the component into a div container element in the HTML DOM
@@ -61,11 +62,13 @@ describe('HeaderComponent', () => {
     expect(headerElement.textContent).toContain('Recipe Finder');
   });
  
+
+
   // check that the width of the header element is equal to the width of the screen. 
   it(`should span the width of the screen`, () => {
-    // compare the 'width' property of the 'element' to the 'innerWidth' property of the 'window' object
-    expect(getComputedStyle(document.documentElement.querySelector('#header')!).width).toEqual(''+window.innerWidth+'px');
-    
+    fixture.detectChanges();
+    // compare the 'width' property of the 'element' to the 'innerWidth' property of the 'window' object minus 17 pixels for scrollbar
+    expect(document.getElementById('header')!.offsetWidth ).toEqual(window.innerWidth-17);
 
     // // in harness style, instead of using fixture we use loader
     // const toolBar = await loader.getHarness<MatToolbarHarness>(MatToolbarHarness.with({
